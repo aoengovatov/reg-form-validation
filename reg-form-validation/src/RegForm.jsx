@@ -1,4 +1,5 @@
 import styles from "./RegForm.module.css";
+import { InputComponent } from './components/InputComponent';
 import { useState } from 'react';
 
 export const RegForm = () => {
@@ -29,25 +30,24 @@ export const RegForm = () => {
     <div className={styles.container}>
       <div className={styles.title}>Регистрация</div>
       <form className={styles.form} onSubmit={onSubmit}>
-        <input 
-          className={styles.input} 
-          name='email' type='email' 
-          placeholder="email" 
+        <InputComponent 
+          name='email' 
+          type='email' 
+          placeholder='email' 
           value={email} 
-          onChange={onEmailChange} 
+          onChange={onEmailChange}
         />
-        <input 
-          className={styles.input} 
+        <InputComponent 
           name='password' 
           type='password' 
-          placeholder="пароль" 
+          placeholder='пароль' 
           value={password} 
-          onChange={onPasswordChange}/>
-        <input 
-          className={styles.input} 
+          onChange={onPasswordChange}
+        />
+        <InputComponent 
           name='password2' 
           type='password' 
-          placeholder="повторите пароль"
+          placeholder='повторите пароль' 
           value={password2} 
           onChange={onPassword2Change}
         />
