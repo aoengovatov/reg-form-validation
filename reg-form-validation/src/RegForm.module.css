@@ -1,65 +1,66 @@
 .container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 320px;
 }
 
 .title {
-  font-size: 30px;
-  font-weight: 600;
-  color: #a581be;
+    font-size: 30px;
+    font-weight: 600;
+    color: #a581be;
 }
 
 .form {
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(133deg, #8280d8 2.83%, #a881bb 97.77%);
-  border-radius: 19px;
-  padding: 30px;
-  margin: 5px;
-  width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(133deg, #8280d8 2.83%, #a881bb 97.77%);
+    border-radius: 19px;
+    padding: 30px;
+    margin: 5px;
+    width: 100%;
 }
 
 .input {
-  border: none;
-  font-size: 16px;
-  background: #b5a6df;
-  color: #2d2828;
-  margin-bottom: 8px;
-  padding: 9px 10px;
-  border-radius: 10px;
+    border: none;
+    font-size: 16px;
+    background: #b5a6df;
+    color: #2d2828;
+    margin-bottom: 8px;
+    padding: 9px 10px;
+    border-radius: 10px;
 }
 
 .input:focus {
-  outline: 1px solid #941ada;
+    outline: 1px solid #941ada;
 }
 
-.botton {
-  padding: 10px;
-  background: linear-gradient(
-    95deg,
-    #b143e4 6.25%,
-    #7341b4 22.69%,
-    #2f54d6 49.91%,
-    #552b8b 75.14%,
-    #7615f1 97.77%
-  );
-  border-radius: 14px;
-  text-align: center;
-  font-size: 17px;
-  color: #ecdbdb;
-  margin-top: 8px;
-  cursor: pointer;
-  transition: all 0.3s;
+.button {
+    border: none;
+    padding: 10px;
+    background: linear-gradient(
+        95deg,
+        #b143e4 6.25%,
+        #7341b4 22.69%,
+        #2f54d6 49.91%,
+        #552b8b 75.14%,
+        #7615f1 97.77%
+    );
+    border-radius: 14px;
+    text-align: center;
+    font-size: 17px;
+    color: #ecdbdb;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
 }
 
-.botton:hover {
-  transform: scale(1.05);
+.button:hover {
+    transform: scale(1.05);
 }
 
 .error {
-  color: #d73838;
-  font-size: 15px;
+    color: #d73838;
+    font-size: 15px;
 }

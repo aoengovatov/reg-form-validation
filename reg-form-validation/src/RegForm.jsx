@@ -1,14 +1,57 @@
 import styles from "./RegForm.module.css";
+import { useState } from 'react';
 
 export const RegForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+
+  const onEmailChange = ({ target }) => {
+    setEmail(target.value);
+
+    //валидация
+  }
+
+  const onPasswordChange = ({ target }) => {
+    setPassword(target.value);
+  }
+
+  const onPassword2Change = ({ target }) => {
+    setPassword2(target.value);
+  }
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    console.log('email:', email, '\npassword: ', password, '\npassword2: ', password2);
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.title}>Регистрация</div>
-      <form className={styles.form}>
-        <input className={styles.input} type='email' placeholder="email"></input>
-        <input className={styles.input} type='password' placeholder="пароль"></input>
-        <input className={styles.input} type='password' placeholder="повторите пароль"></input>
-        <botton className={styles.botton}>зарегистрироваться</botton>
+      <form className={styles.form} onSubmit={onSubmit}>
+        <input 
+          className={styles.input} 
+          name='email' type='email' 
+          placeholder="email" 
+          value={email} 
+          onChange={onEmailChange} 
+        />
+        <input 
+          className={styles.input} 
+          name='password' 
+          type='password' 
+          placeholder="пароль" 
+          value={password} 
+          onChange={onPasswordChange}/>
+        <input 
+          className={styles.input} 
+          name='password2' 
+          type='password' 
+          placeholder="повторите пароль"
+          value={password2} 
+          onChange={onPassword2Change}
+        />
+        <button className={styles.button} type='submit'>зарегистрироваться</button>
       </form>
       <div className={styles.error}>поле email не должно быть пустым</div>
       </div>
