@@ -20,8 +20,11 @@ export const RegForm = () => {
 
   const onPasswordChange = ({ target }) => {
     setPassword(target.value);
+  }
 
+  const onPasswordBlur = ({ target }) => {
     let errorPassword = null;
+
     if (target.value.length < 6) {
       errorPassword = 'Некорректный пароль. Длина должна быть не меньше 6 символов';
     }
@@ -30,8 +33,11 @@ export const RegForm = () => {
 
   const onPassword2Change = ({ target }) => {
     setPassword2(target.value);
+  }
 
+  const onPassword2Blur = ({ target }) => {
     let errorPassword2 = null;
+    
     if (target.value !== password) {
       errorPassword2 = 'Пароли не совпадают';
     }
@@ -68,6 +74,7 @@ export const RegForm = () => {
           placeholder='пароль' 
           value={password} 
           onChange={onPasswordChange}
+          onBlur={onPasswordBlur}
         />
         <InputComponent 
           name='password2' 
@@ -75,6 +82,7 @@ export const RegForm = () => {
           placeholder='повторите пароль' 
           value={password2} 
           onChange={onPassword2Change}
+          onBlur={onPassword2Blur}
         />
         <button className={styles.button} type='submit' disabled={printError(error) !== null}>зарегистрироваться</button>
       </form>
