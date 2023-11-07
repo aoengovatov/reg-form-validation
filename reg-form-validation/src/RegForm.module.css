@@ -22,20 +22,6 @@
     width: 100%;
 }
 
-.input {
-    border: none;
-    font-size: 16px;
-    background: #b5a6df;
-    color: #2d2828;
-    margin-bottom: 8px;
-    padding: 9px 10px;
-    border-radius: 10px;
-}
-
-.input:focus {
-    outline: 1px solid #941ada;
-}
-
 .button {
     border: none;
     padding: 10px;
@@ -58,6 +44,10 @@
 
 .button:hover {
     transform: scale(1.05);
+}
+
+.button:focus {
+    border: 2px solid #d0cece;
 }
 
 .error {

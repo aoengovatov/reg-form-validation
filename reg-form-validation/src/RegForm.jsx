@@ -52,9 +52,10 @@ export const RegForm = () => {
   const printError = (error) => {
     if (error !== null) {
       const printString = Object.values(error).join(' ');
+      printString.trim();
       return printString;
     }
-    return null;
+    return '';
   }
 
   return (
@@ -84,9 +85,9 @@ export const RegForm = () => {
           onChange={onPassword2Change}
           onBlur={onPassword2Blur}
         />
-        <button className={styles.button} type='submit' disabled={printError(error) !== null}>зарегистрироваться</button>
+        <button className={styles.button} type='submit' disabled={printError(error).length === 0}>зарегистрироваться</button>
       </form>
-      <div className={styles.error}>{printError(error)}</div>
+      { printError(error).length !== 0 && <div className={styles.error}>{printError(error)}</div> }
       </div>
   );
 };
