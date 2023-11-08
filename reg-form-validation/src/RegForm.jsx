@@ -1,12 +1,13 @@
 import styles from "./RegForm.module.css";
 import { InputComponent } from './components/InputComponent';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 export const RegForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
   const [error, setError] = useState(null);
+  const submitButtonRef = useRef(null);
 
   const onEmailChange = ({ target }) => {
     setEmail(target.value);
@@ -58,11 +59,16 @@ export const RegForm = () => {
 
   const printError = (error) => {
     if (error !== null) {
-      const printString = Object.values(error).join(' ');
-      printString.trim();
+      const printString = Object.values(error).join(' ').trim();
       return printString;
     }
     return '';
+  }
+
+  //console.log(email !== '' && password !== '' && password2 === password);
+  //console.log(printError(error));
+  if (email !== '' && password !== '' && password2 === password && printError(error) === '') {
+    submitButtonRef.current.focus();
   }
 
   return (
@@ -92,7 +98,13 @@ export const RegForm = () => {
           onChange={onPassword2Change}
           onBlur={onPassword2Blur}
         />
-        <button className={styles.button} type='submit' disabled={printError(error).length === 0}>зарегистрироваться</button>
+        <button 
+          ref={submitButtonRef}
+          className={styles.button} 
+          type='submit' 
+          disabled={printError(error).length !== 0}>
+            зарегистрироваться
+        </button>
       </form>
       { printError(error).length !== 0 && <div className={styles.error}>{printError(error)}</div> }
       </div>

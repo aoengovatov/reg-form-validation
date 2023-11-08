@@ -47,6 +47,7 @@
 }
 
 .button:focus {
+    outline: none;
     border: 2px solid #d0cece;
 }
 
