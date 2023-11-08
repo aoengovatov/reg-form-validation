@@ -20,6 +20,13 @@ export const RegForm = () => {
 
   const onPasswordChange = ({ target }) => {
     setPassword(target.value);
+
+    let errorPassword = null;
+
+    if (target.value.length > 20) {
+      errorPassword = 'Некорректный пароль. Длина должна быть не больше 20 символов';
+    }
+    setError({...error, password: errorPassword});
   }
 
   const onPasswordBlur = ({ target }) => {
