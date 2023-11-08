@@ -9,14 +9,29 @@ export const RegForm = () => {
   const [error, setError] = useState(null);
   const submitButtonRef = useRef(null);
 
+  const checkFieldsAndAddButtonFocus = () => {
+    if (email !== '' && 
+      password !== '' && 
+      password2 === password && 
+      printError(error) === '') {
+      submitButtonRef.current.focus();
+    }
+  }
+
   const onEmailChange = ({ target }) => {
     setEmail(target.value);
 
     let errorEmail = null;
     if (!/^[A-Z0-9_-]+@[A-Z0-9]+.[A-Z]{2,4}$/i.test(target.value)) {
-      errorEmail = 'Некорректный email. Допустимые символы A-Z, a-z, 0-9, -, _';
+      errorEmail = 'Некорректный email. Допустимые символы:' + 
+      'латинские буквы, цифры, тире, нижнее подчеркивание.';
     }
     setError({...error, email: errorEmail});
+    checkFieldsAndAddButtonFocus();
+  }
+
+  const onEmailBlur = ({ target }) => {
+    checkFieldsAndAddButtonFocus();
   }
 
   const onPasswordChange = ({ target }) => {
@@ -25,7 +40,10 @@ export const RegForm = () => {
     let errorPassword = null;
 
     if (target.value.length > 20) {
-      errorPassword = 'Некорректный пароль. Длина должна быть не больше 20 символов';
+      errorPassword = 'Некорректный пароль. Длина должна быть не больше 20 символов.';
+    } else if (!/^[\w\-_]*$/.test(target.value)) {
+      errorPassword = 'Некорректный пароль. Разрешенные символы:' + 
+      'латинские буквы, цифры, тире, нижнее подчеркивание.'
     }
     setError({...error, password: errorPassword});
   }
@@ -33,10 +51,13 @@ export const RegForm = () => {
   const onPasswordBlur = ({ target }) => {
     let errorPassword = null;
 
-    if (target.value.length < 6) {
-      errorPassword = 'Некорректный пароль. Длина должна быть не меньше 6 символов';
+    if (target.value !== password2 && password2 !== '') {
+      errorPassword = 'Пароли не совпадают.';
+    } else if (target.value.length < 6) {
+      errorPassword = 'Некорректный пароль. Длина должна быть не меньше 6 символов.';
     }
     setError({...error, password: errorPassword});
+    checkFieldsAndAddButtonFocus();
   }
 
   const onPassword2Change = ({ target }) => {
@@ -46,10 +67,11 @@ export const RegForm = () => {
   const onPassword2Blur = ({ target }) => {
     let errorPassword2 = null;
     
-    if (target.value !== password) {
+    if (target.value !== password && password !== '') {
       errorPassword2 = 'Пароли не совпадают';
     }
     setError({...error, password2: errorPassword2});
+    checkFieldsAndAddButtonFocus();
   }
 
   const onSubmit = (event) => {
@@ -65,12 +87,6 @@ export const RegForm = () => {
     return '';
   }
 
-  //console.log(email !== '' && password !== '' && password2 === password);
-  //console.log(printError(error));
-  if (email !== '' && password !== '' && password2 === password && printError(error) === '') {
-    submitButtonRef.current.focus();
-  }
-
   return (
     <div className={styles.container}>
       <div className={styles.title}>Регистрация</div>
@@ -81,6 +97,7 @@ export const RegForm = () => {
           placeholder='email' 
           value={email} 
           onChange={onEmailChange}
+          onBlur={onEmailBlur}
         />
         <InputComponent 
           name='password' 
@@ -106,7 +123,8 @@ export const RegForm = () => {
             зарегистрироваться
         </button>
       </form>
-      { printError(error).length !== 0 && <div className={styles.error}>{printError(error)}</div> }
+      { printError(error).length !== 0 && 
+      <div className={styles.error}>{printError(error)}</div> }
       </div>
   );
 };
