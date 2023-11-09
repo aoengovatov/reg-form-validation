@@ -1,5 +1,5 @@
 import styles from "./RegForm.module.css";
-import { InputComponent } from './components/InputComponent';
+import { InputComponent } from '../InputComponent/InputComponent';
 import { useRef, useState } from 'react';
 
 export const RegForm = () => {
