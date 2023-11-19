@@ -2,6 +2,7 @@ import styles from './ReactHookForm.module.css';
 import * as yup from 'yup';
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from 'react-hook-form';
+import { useRef, useState } from 'react';
 
 const fieldSchema = yup.object()
     .shape({
@@ -14,10 +15,7 @@ const fieldSchema = yup.object()
             .min(6, 'Некорректный пароль. Длина должна быть не меньше 6 символов.')
             .max(20, 'Некорректный пароль. Длина должна быть не больше 20 символов.'),
         password2: yup.string()
-            .matches(/^[\w\-_]*$/, 'Некорректный пароль. Разрешенные символы:' + 
-                'латинские буквы, цифры, тире, нижнее подчеркивание.')
-            .min(6, 'Некорректный пароль. Длина должна быть не меньше 6 символов.')
-            .max(20, 'Некорректный пароль. Длина должна быть не больше 20 символов.'),       
+            .oneOf([yup.ref('password'), null], 'Пароли должны совпадать'),       
     });
 
 const sendFormData = (formData) => {
@@ -25,6 +23,7 @@ const sendFormData = (formData) => {
 };    
 
 export const ReactHookForm = () => {
+    const submitButtonRef = useRef(null);
     const {
         register,
         handleSubmit,
@@ -38,6 +37,9 @@ export const ReactHookForm = () => {
         resolver: yupResolver(fieldSchema),
     });
 
+    const emailError = errors.email?.message;
+    const passwordError = errors.password?.message;
+    const password2Error = errors.password2?.message;
 
     return (
         <div className={styles.container}>
@@ -46,8 +48,9 @@ export const ReactHookForm = () => {
             <input 
                 className={styles.input} 
                 name='email' 
-                type='text' 
-                {...register('email')} />
+                type='text'
+                {...register('email')} 
+                />
             <input 
                 className={styles.input} 
                 name='password' 
@@ -60,13 +63,15 @@ export const ReactHookForm = () => {
                 {...register('password2')} />
             
             <button 
+                ref={submitButtonRef}
                 className={styles.button} 
-                type='submit' 
-                disabled='false'>
+                type='submit'>
                     зарегистрироваться
             </button>
         </form>
-        <div className={styles.error}>ошибка</div>
+        {emailError && <div className={styles.error}>{emailError}</div>}
+        {passwordError && <div className={styles.error}>{passwordError}</div>}
+        {password2Error && <div className={styles.error}>{password2Error}</div>}
       </div>
     );
 }
